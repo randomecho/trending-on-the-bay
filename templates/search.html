@@ -2,12 +2,10 @@
 {% block body %}
 
 <h1>Trending on the Bay</h1>
-<p>Search and decide what products might be worth flipping
-on eBay based on current and sold listings.</p>
-
 <form method="get" action="/search">
-    <input type="text" name="keyword" required="true" autofocus>
+    <input type="text" name="keyword" required="true" autofocus value="{{ keyword }}">
     <input type="submit" value="search">
 </form>
 
+<p>Results for: <b>{{ keyword }}</b></p>
 {% endblock %}
