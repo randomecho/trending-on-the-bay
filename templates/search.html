@@ -9,6 +9,7 @@
 
 <p><b>{{ results.matches }}</b> results for: <b>{{ keyword }}</b></p>
 
+{% if results.products %}
 <table>
     <tr>
         <th>Item</th>
@@ -23,5 +24,6 @@
     </tr>
     {% endfor %}
 </table>
+{% endif %}
 
 {% endblock %}
