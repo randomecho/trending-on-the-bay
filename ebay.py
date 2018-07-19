@@ -24,7 +24,7 @@ def processSoldResults(json):
 
         if (int(resultCount) > 0):
             results['products'] = json['findCompletedItemsResponse'][0]['searchResult'][0]['item']
-
-        return results
     else:
-        return False
+        results = {'error': json['findCompletedItemsResponse'][0]['errorMessage'][0]['error'][0]['message'][0]}
+
+    return results
