@@ -1,4 +1,5 @@
 from flask import Flask, escape, render_template, request
+import ebay
 
 app = Flask(__name__)
 
@@ -9,7 +10,9 @@ def index():
 @app.route("/search")
 def search():
     keyword = request.args.get('keyword')
-    return render_template("search.html", keyword = escape(keyword))
+    results = ebay.searchSold(keyword)
+
+    return render_template("search.html", keyword=escape(keyword), results=results)
 
 @app.errorhandler(404)
 def page_not_found(e):

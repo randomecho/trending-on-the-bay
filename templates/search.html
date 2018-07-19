@@ -7,5 +7,21 @@
     <input type="submit" value="search">
 </form>
 
-<p>Results for: <b>{{ keyword }}</b></p>
+<p><b>{{ results.matches }}</b> results for: <b>{{ keyword }}</b></p>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Condition</th>
+    </tr>
+    {% for product in results.products %}
+    <tr>
+        <td>{{ product.title[0] }}</td>
+        <td>{{ product.sellingStatus[0].currentPrice[0].__value__ }}</td>
+        <td>{{ product.condition[0].conditionDisplayName[0] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}
