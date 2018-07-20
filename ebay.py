@@ -5,6 +5,26 @@ import yaml
 config = yaml.safe_load(open("config.yml"))
 
 
+def cleanUpResults(results):
+    items = []
+
+    for item in results:
+        items.append({
+            'title': item['title'][0],
+            'soldPrice': item['sellingStatus'][0]['currentPrice'][0]['__value__'],
+            'condition': convertCondition(item)
+            })
+
+    return items
+
+
+def convertCondition(item):
+    if 'condition' in item and 'conditionDisplayName' in item['condition'][0]:
+        return item['condition'][0]['conditionDisplayName'][0]
+    else:
+        return 'Unknown'
+
+
 def searchSold(keyword):
     r = requests.get(config['base_url'] + '/services/search/' \
         'FindingService/v1?OPERATION-NAME=findCompletedItems&' \
@@ -25,7 +45,7 @@ def processSoldResults(json):
         results = {'matches': resultCount}
 
         if (int(resultCount) > 0):
-            results['products'] = searchResponse['searchResult'][0]['item']
+            results['products'] = cleanUpResults(searchResponse['searchResult'][0]['item'])
     else:
         results = {'error': searchResponse['errorMessage'][0]['error'][0]['message'][0]}
 

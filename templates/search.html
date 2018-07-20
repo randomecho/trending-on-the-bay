@@ -24,14 +24,9 @@
     </tr>
     {% for product in results.products %}
     <tr>
-        <td>{{ product.title[0] }}</td>
-        <td>{{ product.sellingStatus[0].currentPrice[0].__value__ }}</td>
-        <td>
-        {% if product.condition and product.condition[0].conditionDisplayName %}
-            {{ product.condition[0].conditionDisplayName[0] }}
-        {% else %}
-            Unknown
-        {% endif %}
+        <td>{{ product.title }}</td>
+        <td>{{ product.soldPrice }}</td>
+        <td>{{ product.condition }}</td>
         </td>
     </tr>
     {% endfor %}
