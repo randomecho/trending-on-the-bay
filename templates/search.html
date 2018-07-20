@@ -25,7 +25,7 @@
     {% for product in results.products %}
     <tr>
         <td>{{ product.title }}</td>
-        <td>{{ product.soldPrice }}</td>
+        <td>{{ product.soldPrice }}&nbsp;{{ product.soldCurrency }}</td>
         <td>{{ product.condition }}</td>
         </td>
     </tr>

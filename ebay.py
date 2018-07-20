@@ -12,6 +12,7 @@ def cleanUpResults(results):
         items.append({
             'title': item['title'][0],
             'soldPrice': item['sellingStatus'][0]['currentPrice'][0]['__value__'],
+            'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
             'condition': convertCondition(item)
             })
 
