@@ -13,15 +13,27 @@ def calculateShipping(shipping):
     else:
         return shipping['shippingType'][0]
 
+
+def calculateTotalPrice(sold_price, shipping_cost):
+    if shipping_cost == 'Calculated':
+        return sold_price + '+'
+    else:
+        return round(float(sold_price) + float(shipping_cost), 2)
+
+
 def cleanUpResults(results):
     items = []
 
     for item in results:
+        shipping_cost = calculateShipping(item['shippingInfo'][0])
+        sold_price = item['sellingStatus'][0]['currentPrice'][0]['__value__']
+
         items.append({
             'title': item['title'][0],
-            'soldPrice': item['sellingStatus'][0]['currentPrice'][0]['__value__'],
+            'soldPrice': sold_price,
             'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
-            'shipping': calculateShipping(item['shippingInfo'][0]),
+            'shipping': shipping_cost,
+            'totalPrice': calculateTotalPrice(sold_price, shipping_cost),
             'condition': convertCondition(item)
             })
 
