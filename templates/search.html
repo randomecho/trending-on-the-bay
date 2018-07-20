@@ -26,7 +26,13 @@
     <tr>
         <td>{{ product.title[0] }}</td>
         <td>{{ product.sellingStatus[0].currentPrice[0].__value__ }}</td>
-        <td>{{ product.condition[0].conditionDisplayName[0] }}</td>
+        <td>
+        {% if product.condition %}
+            {{ product.condition[0].conditionDisplayName[0] }}
+        {% else %}
+            Unknown
+        {% endif %}
+        </td>
     </tr>
     {% endfor %}
 </table>
