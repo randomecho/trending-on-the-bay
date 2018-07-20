@@ -18,13 +18,15 @@ def searchSold(keyword):
     return processSoldResults(r.json())
 
 def processSoldResults(json):
-    if json['findCompletedItemsResponse'][0]['ack'][0] == 'Success':
-        resultCount = json['findCompletedItemsResponse'][0]['searchResult'][0]['@count']
+    searchResponse = json['findCompletedItemsResponse'][0]
+
+    if searchResponse['ack'][0] == 'Success':
+        resultCount = searchResponse['searchResult'][0]['@count']
         results = {'matches': resultCount}
 
         if (int(resultCount) > 0):
-            results['products'] = json['findCompletedItemsResponse'][0]['searchResult'][0]['item']
+            results['products'] = searchResponse['searchResult'][0]['item']
     else:
-        results = {'error': json['findCompletedItemsResponse'][0]['errorMessage'][0]['error'][0]['message'][0]}
+        results = {'error': searchResponse['errorMessage'][0]['error'][0]['message'][0]}
 
     return results
