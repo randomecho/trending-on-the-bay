@@ -5,6 +5,14 @@ import yaml
 config = yaml.safe_load(open("config.yml"))
 
 
+def calculateShipping(shipping):
+    if shipping['shippingType'][0] == 'Free':
+        return 0
+    elif 'shippingServiceCost' in shipping:
+        return shipping['shippingServiceCost'][0]['__value__']
+    else:
+        return shipping['shippingType'][0]
+
 def cleanUpResults(results):
     items = []
 
@@ -13,6 +21,7 @@ def cleanUpResults(results):
             'title': item['title'][0],
             'soldPrice': item['sellingStatus'][0]['currentPrice'][0]['__value__'],
             'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
+            'shipping': calculateShipping(item['shippingInfo'][0]),
             'condition': convertCondition(item)
             })
 

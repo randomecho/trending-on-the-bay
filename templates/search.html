@@ -19,14 +19,16 @@
 <table>
     <tr>
         <th>Item</th>
-        <th>Price</th>
         <th>Condition</th>
+        <th>Price</th>
+        <th>Shipping</th>
     </tr>
     {% for product in results.products %}
     <tr>
         <td>{{ product.title }}</td>
-        <td>{{ product.soldPrice }}&nbsp;{{ product.soldCurrency }}</td>
         <td>{{ product.condition }}</td>
+        <td>{{ product.soldPrice }}&nbsp;{{ product.soldCurrency }}</td>
+        <td>{{ product.shipping }}</td>
         </td>
     </tr>
     {% endfor %}
