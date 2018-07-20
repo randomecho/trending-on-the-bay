@@ -1,3 +1,4 @@
+import iso8601
 import requests
 import yaml
 
@@ -34,6 +35,7 @@ def cleanUpResults(results):
             'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
             'shipping': shipping_cost,
             'totalPrice': calculateTotalPrice(sold_price, shipping_cost),
+            'endDate': convertEndTime(item['listingInfo'][0]['endTime'][0]),
             'condition': convertCondition(item)
             })
 
@@ -45,6 +47,11 @@ def convertCondition(item):
         return item['condition'][0]['conditionDisplayName'][0]
     else:
         return 'Unknown'
+
+
+def convertEndTime(timestamp):
+    end_time = iso8601.parse_date(timestamp)
+    return end_time.date()
 
 
 def searchSold(keyword):
