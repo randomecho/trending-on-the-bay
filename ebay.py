@@ -72,13 +72,22 @@ def generateStatistics(items):
                 total_price_other.append(item['totalPrice'])
 
     if len(total_price) > 0:
-        average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
+        if len(total_price) > 2:
+            average_sale_price = round(float((sum(total_price) - min(total_price) - max(total_price))/ (len(total_price) - 2)), 2)
+        else:
+            average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
 
     if len(total_price_new) > 0:
-        average_new_price = round(float(sum(total_price_new) / len(total_price_new)), 2)
+        if len(total_price_new) > 2:
+            average_new_price = round(float((sum(total_price_new) - min(total_price_new) - max(total_price_new))/ (len(total_price_new) - 2)), 2)
+        else:
+            average_new_price = round(float(sum(total_price_new) / len(total_price_new)), 2)
 
     if len(total_price_other) > 0:
-        average_other_price = round(float(sum(total_price_other) / len(total_price_other)), 2)
+        if len(total_price_new) > 2:
+            average_other_price = round(float((sum(total_price_other) - min(total_price_other) - max(total_price_other))/ (len(total_price_other) - 2)), 2)
+        else:
+            average_other_price = round(float(sum(total_price_other) / len(total_price_other)), 2)
 
     stats = {
         'average': average_sale_price,
