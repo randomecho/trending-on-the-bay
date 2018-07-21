@@ -86,7 +86,9 @@ def generateStatistics(items):
     stats = {
         'average': average_sale_price,
         'average_new': average_new_price,
-        'average_other': average_other_price
+        'average_other': average_other_price,
+        'highest': max(total_price),
+        'lowest': min(total_price)
         }
 
     return stats

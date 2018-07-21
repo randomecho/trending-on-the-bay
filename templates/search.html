@@ -19,7 +19,9 @@
 <h2>Sold listings</h2>
 {% if results.stats %}
 <ul>
-    <li>Average sale price: {{ results.stats.average }}</li>
+    <li>Average sold price: {{ results.stats.average }}</li>
+    <li>Highest sold price: {{ results.stats.highest }}</li>
+    <li>Lowest sold price: {{ results.stats.lowest }}</li>
     <li>Average new price: {{ results.stats.average_new }}</li>
     <li>Average not new price: {{ results.stats.average_other }}</li>
 </ul>
