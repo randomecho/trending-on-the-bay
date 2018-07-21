@@ -46,7 +46,7 @@ def convertCondition(item):
     if 'condition' in item and 'conditionDisplayName' in item['condition'][0]:
         return item['condition'][0]['conditionDisplayName'][0]
     else:
-        return 'Unknown'
+        return '--'
 
 
 def convertEndTime(timestamp):
