@@ -58,6 +58,9 @@ def generateStatistics(items):
     total_price = []
     total_price_new = []
     total_price_other = []
+    average_sale_price = 0
+    average_new_price = 0
+    average_other_price = 0
 
     for item in items:
         if type(item['shipping']) is float and item['soldCurrency'] == 'USD':
@@ -70,18 +73,12 @@ def generateStatistics(items):
 
     if len(total_price) > 0:
         average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
-    else:
-        average_sale_price = 0
 
     if len(total_price_new) > 0:
         average_new_price = round(float(sum(total_price_new) / len(total_price_new)), 2)
-    else:
-        average_new_price = 0
 
     if len(total_price_other) > 0:
         average_other_price = round(float(sum(total_price_other) / len(total_price_other)), 2)
-    else:
-        average_other_price = 0
 
     stats = {
         'average': average_sale_price,
