@@ -54,6 +54,18 @@ def convertEndTime(timestamp):
     return end_time.date()
 
 
+def generateStatistics(items):
+    total_price = []
+
+    for item in items:
+        if item['shipping'] != 'Calculated' and item['soldCurrency'] == 'USD':
+            total_price.append(item['totalPrice'])
+
+    average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
+
+    return average_sale_price
+
+
 def searchSold(keyword):
     r = requests.get(config['base_url'] + '/services/search/' \
         'FindingService/v1?OPERATION-NAME=findCompletedItems&' \
@@ -75,7 +87,9 @@ def processSoldResults(json):
         results = {'matches': resultCount}
 
         if (int(resultCount) > 0):
-            results['products'] = cleanUpResults(searchResponse['searchResult'][0]['item'])
+            items = cleanUpResults(searchResponse['searchResult'][0]['item'])
+            results['products'] = items
+            results['average'] = generateStatistics(items)
     else:
         results = {'error': searchResponse['errorMessage'][0]['error'][0]['message'][0]}
 

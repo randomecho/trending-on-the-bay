@@ -15,6 +15,10 @@
 <p><b>{{ results.matches }}</b> results for: <b>{{ keyword }}</b></p>
 {% endif %}
 
+{% if results.average %}
+Average sale price: {{ results.average }}
+{% endif %}
+
 {% if results.products %}
 <table>
     <tr>
