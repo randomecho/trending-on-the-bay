@@ -20,18 +20,28 @@
 {% if results.stats %}
 <table>
     <tr>
-        <th>Average sold</th>
-        <th>Average new</th>
-        <th>Average not new</th>
+        <th>&nbsp;</th>
+        <th>Average</th>
         <th>Highest</th>
         <th>Lowest</th>
     </tr>
     <tr>
+        <td>Overall</td>
         <td>{{ results.stats.average }}</td>
-        <td>{{ results.stats.average_new }}</td>
-        <td>{{ results.stats.average_other }}</td>
         <td>{{ results.stats.highest }}</td>
         <td>{{ results.stats.lowest }}</td>
+    </tr>
+    <tr>
+        <td>New</td>
+        <td>{{ results.stats.average_new }}</td>
+        <td>{{ results.stats.highest_new }}</td>
+        <td>{{ results.stats.lowest_new }}</td>
+    </tr>
+    <tr>
+        <td>Not new</td>
+        <td>{{ results.stats.average_other }}</td>
+        <td>{{ results.stats.highest_other }}</td>
+        <td>{{ results.stats.lowest_other }}</td>
     </tr>
 </table>
 {% endif %}

@@ -85,7 +85,11 @@ def generateStatistics(items):
         'average_new': calculateAverage(total_price_new),
         'average_other': calculateAverage(total_price_other),
         'highest': max(total_price, default=0),
-        'lowest': min(total_price, default=0)
+        'highest_new': max(total_price_new, default=0),
+        'highest_other': max(total_price_other, default=0),
+        'lowest': min(total_price, default=0),
+        'lowest_new': min(total_price_new, default=0),
+        'lowest_other': min(total_price_other, default=0)
         }
 
     return stats
