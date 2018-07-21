@@ -15,14 +15,16 @@
 <p><b>{{ results.matches }}</b> results for: <b>{{ keyword }}</b></p>
 {% endif %}
 
-{% if results.stats %}
-Average sale price: {{ results.stats.average }}
-Average new price: {{ results.stats.average_new }}
-Average not new price: {{ results.stats.average_other }}
-{% endif %}
-
 {% if results.products %}
 <h2>Sold listings</h2>
+{% if results.stats %}
+<ul>
+    <li>Average sale price: {{ results.stats.average }}</li>
+    <li>Average new price: {{ results.stats.average_new }}</li>
+    <li>Average not new price: {{ results.stats.average_other }}</li>
+</ul>
+{% endif %}
+
 <table>
     <tr>
         <th>Item</th>
