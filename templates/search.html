@@ -15,8 +15,10 @@
 <p><b>{{ results.matches }}</b> results for: <b>{{ keyword }}</b></p>
 {% endif %}
 
-{% if results.average %}
-Average sale price: {{ results.average }}
+{% if results.stats %}
+Average sale price: {{ results.stats.average }}
+Average new price: {{ results.stats.average_new }}
+Average not new price: {{ results.stats.average_other }}
 {% endif %}
 
 {% if results.products %}

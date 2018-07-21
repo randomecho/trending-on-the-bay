@@ -56,14 +56,40 @@ def convertEndTime(timestamp):
 
 def generateStatistics(items):
     total_price = []
+    total_price_new = []
+    total_price_other = []
 
     for item in items:
         if type(item['shipping']) is float and item['soldCurrency'] == 'USD':
             total_price.append(item['totalPrice'])
 
-    average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
+            if "new" in item['condition'].lower():
+                total_price_new.append(item['totalPrice'])
+            else:
+                total_price_other.append(item['totalPrice'])
 
-    return average_sale_price
+    if len(total_price) > 0:
+        average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
+    else:
+        average_sale_price = 0
+
+    if len(total_price_new) > 0:
+        average_new_price = round(float(sum(total_price_new) / len(total_price_new)), 2)
+    else:
+        average_new_price = 0
+
+    if len(total_price_other) > 0:
+        average_other_price = round(float(sum(total_price_other) / len(total_price_other)), 2)
+    else:
+        average_other_price = 0
+
+    stats = {
+        'average': average_sale_price,
+        'average_new': average_new_price,
+        'average_other': average_other_price
+        }
+
+    return stats
 
 
 def searchSold(keyword):
@@ -89,7 +115,7 @@ def processSoldResults(json):
         if (int(resultCount) > 0):
             items = cleanUpResults(searchResponse['searchResult'][0]['item'])
             results['products'] = items
-            results['average'] = generateStatistics(items)
+            results['stats'] = generateStatistics(items)
     else:
         results = {'error': searchResponse['errorMessage'][0]['error'][0]['message'][0]}
 
