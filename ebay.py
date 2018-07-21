@@ -6,6 +6,17 @@ import yaml
 config = yaml.safe_load(open("config.yml"))
 
 
+def calculateAverage(sale_prices):
+    if len(sale_prices) == 0:
+        return 0.0
+
+    if len(sale_prices) > 2:
+        average_sales = float((sum(sale_prices) - min(sale_prices) - max(sale_prices))/ (len(sale_prices) - 2))
+    else:
+        average_sales = float(sum(sale_prices) / len(sale_prices))
+
+    return round(average_sales, 2)
+
 def calculateShipping(shipping):
     if shipping['shippingType'][0] == 'Free':
         return 0.0
@@ -58,9 +69,6 @@ def generateStatistics(items):
     total_price = []
     total_price_new = []
     total_price_other = []
-    average_sale_price = 0
-    average_new_price = 0
-    average_other_price = 0
 
     for item in items:
         if type(item['shipping']) is float and item['soldCurrency'] == 'USD':
@@ -71,28 +79,10 @@ def generateStatistics(items):
             else:
                 total_price_other.append(item['totalPrice'])
 
-    if len(total_price) > 0:
-        if len(total_price) > 2:
-            average_sale_price = round(float((sum(total_price) - min(total_price) - max(total_price))/ (len(total_price) - 2)), 2)
-        else:
-            average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
-
-    if len(total_price_new) > 0:
-        if len(total_price_new) > 2:
-            average_new_price = round(float((sum(total_price_new) - min(total_price_new) - max(total_price_new))/ (len(total_price_new) - 2)), 2)
-        else:
-            average_new_price = round(float(sum(total_price_new) / len(total_price_new)), 2)
-
-    if len(total_price_other) > 0:
-        if len(total_price_new) > 2:
-            average_other_price = round(float((sum(total_price_other) - min(total_price_other) - max(total_price_other))/ (len(total_price_other) - 2)), 2)
-        else:
-            average_other_price = round(float(sum(total_price_other) / len(total_price_other)), 2)
-
     stats = {
-        'average': average_sale_price,
-        'average_new': average_new_price,
-        'average_other': average_other_price,
+        'average': calculateAverage(total_price),
+        'average_new': calculateAverage(total_price_new),
+        'average_other': calculateAverage(total_price_other),
         'highest': max(total_price),
         'lowest': min(total_price)
         }
