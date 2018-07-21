@@ -8,18 +8,18 @@ config = yaml.safe_load(open("config.yml"))
 
 def calculateShipping(shipping):
     if shipping['shippingType'][0] == 'Free':
-        return 0
+        return 0.0
     elif 'shippingServiceCost' in shipping:
-        return shipping['shippingServiceCost'][0]['__value__']
+        return float(shipping['shippingServiceCost'][0]['__value__'])
     else:
-        return shipping['shippingType'][0]
+        return 'Calculated'
 
 
 def calculateTotalPrice(sold_price, shipping_cost):
-    if shipping_cost == 'Calculated':
-        return sold_price + '+'
-    else:
+    if type(shipping_cost) is float:
         return round(float(sold_price) + float(shipping_cost), 2)
+    else:
+        return sold_price + '+'
 
 
 def cleanUpResults(results):
@@ -58,7 +58,7 @@ def generateStatistics(items):
     total_price = []
 
     for item in items:
-        if item['shipping'] != 'Calculated' and item['soldCurrency'] == 'USD':
+        if type(item['shipping']) is float and item['soldCurrency'] == 'USD':
             total_price.append(item['totalPrice'])
 
     average_sale_price = round(float(sum(total_price) / len(total_price)), 2)
