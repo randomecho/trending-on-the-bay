@@ -42,6 +42,7 @@ def cleanUpResults(results):
 
         items.append({
             'title': item['title'][0],
+            'url': item['viewItemURL'][0] + '?nordt=true&orig_cvip=true',
             'soldPrice': sold_price,
             'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
             'shipping': shipping_cost,

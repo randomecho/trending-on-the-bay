@@ -37,7 +37,7 @@
     </tr>
     {% for product in results.products %}
     <tr>
-        <td>{{ product.title }}<br>
+        <td><a href="{{ product.url }}">{{ product.title }}</a><br>
             <span class="end_date">Sold: {{ product.endDate }}</span></td>
         <td>{{ product.condition }}</td>
         <td>{{ product.soldPrice }}</td>
