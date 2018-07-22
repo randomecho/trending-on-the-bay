@@ -17,6 +17,7 @@ def calculateAverage(sale_prices):
 
     return round(average_sales, 2)
 
+
 def calculateShipping(shipping):
     if shipping['shippingType'][0] == 'Free':
         return 0.0
@@ -66,6 +67,18 @@ def convertEndTime(timestamp):
     return end_time.date()
 
 
+def createResultsLookup(search_response):
+    resultCount = search_response['@count']
+    results = {'matches': resultCount}
+
+    if (int(resultCount) > 0):
+        items = cleanUpResults(search_response['item'])
+        results['products'] = items
+        results['stats'] = generateStatistics(items)
+
+    return results
+
+
 def generateStatistics(items):
     total_price = []
     total_price_new = []
@@ -108,17 +121,12 @@ def searchSold(keyword):
 
     return processSoldResults(r.json())
 
+
 def processSoldResults(json):
     searchResponse = json['findCompletedItemsResponse'][0]
 
     if searchResponse['ack'][0] == 'Success':
-        resultCount = searchResponse['searchResult'][0]['@count']
-        results = {'matches': resultCount}
-
-        if (int(resultCount) > 0):
-            items = cleanUpResults(searchResponse['searchResult'][0]['item'])
-            results['products'] = items
-            results['stats'] = generateStatistics(items)
+        results = createResultsLookup(searchResponse['searchResult'][0])
     else:
         results = {'error': searchResponse['errorMessage'][0]['error'][0]['message'][0]}
 
