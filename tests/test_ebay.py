@@ -54,3 +54,16 @@ def test_shrug_total_price_with_iffy_shipping():
     result = ebay.calculateTotalPrice(10, 'Calculated')
 
     assert result == '10+'
+
+
+def test_render_condition_name_from_json():
+    item = {'condition': [{'conditionDisplayName': ['New with tags']}]}
+    result = ebay.convertCondition(item)
+
+    assert result == 'New with tags'
+
+
+def test_get_dashes_on_missing_condition():
+    result = ebay.convertCondition({})
+
+    assert result == '--'
