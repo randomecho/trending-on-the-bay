@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "app.py"]
+    container_name: trending_bay
+    image: trending
+    ports:
+      - 3516:80
+    volumes:
+      - .:/app

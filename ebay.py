@@ -11,7 +11,7 @@ def calculateAverage(sale_prices):
         return 0.0
 
     if len(sale_prices) > 2:
-        average_sales = float((sum(sale_prices) - min(sale_prices) - max(sale_prices))/ (len(sale_prices) - 2))
+        average_sales = float((sum(sale_prices) - min(sale_prices) - max(sale_prices)) / (len(sale_prices) - 2))
     else:
         average_sales = float(sum(sale_prices) / len(sale_prices))
 
