@@ -31,7 +31,7 @@ def calculateTotalPrice(sold_price, shipping_cost):
     if type(shipping_cost) is float:
         return round(float(sold_price) + float(shipping_cost), 2)
     else:
-        return sold_price + '+'
+        return str(sold_price) + '+'
 
 
 def cleanUpResults(results):

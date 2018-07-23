@@ -42,3 +42,15 @@ def test_shipping_defaults_to_calculated():
     result = ebay.calculateShipping(shipping)
 
     assert result == 'Calculated'
+
+
+def test_total_price_calculation():
+    result = ebay.calculateTotalPrice(10, 7.5)
+
+    assert result == 17.5
+
+
+def test_shrug_total_price_with_iffy_shipping():
+    result = ebay.calculateTotalPrice(10, 'Calculated')
+
+    assert result == '10+'
