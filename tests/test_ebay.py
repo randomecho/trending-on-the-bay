@@ -67,3 +67,9 @@ def test_get_dashes_on_missing_condition():
     result = ebay.convertCondition({})
 
     assert result == '--'
+
+
+def test_converting_timedate_to_date():
+    result = ebay.convertEndTime('2000-09-15T18:00:36.000Z')
+
+    assert format(result, '%Y-%m-%d') == '2000-09-15'
