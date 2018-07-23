@@ -21,7 +21,7 @@ def test_missing(client):
 
 def test_search(client):
     rv = client.get("/search?keyword=chog")
-    assert b"Results for: <b>chog</b>" in rv.data
+    assert b"results for: <b>chog</b>" in rv.data
 
     with app.test_request_context("/search?keyword=chog") as req:
         assert req.request.args['keyword'] == 'chog'
