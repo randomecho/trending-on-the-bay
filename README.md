@@ -5,9 +5,10 @@ on eBay based on current and sold listings.
 
 ## Setup
 
-Run the app locally with Docker Compose:
+Run the app locally with Docker:
 
-    docker-compose up --build -d
+    docker build . -t trending_bay
+    docker run -d --name trending_app -p 3516:80 trending_bay
 
 The web app should now be accessible via: http://0.0.0.0:3516/
 
