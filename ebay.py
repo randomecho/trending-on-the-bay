@@ -1,9 +1,10 @@
 import iso8601
+import logging
 import requests
 import yaml
 
 
-config = yaml.safe_load(open("config.yml"))
+logger = logging.getLogger(__name__)
 
 
 def calculateAverage(sale_prices):
@@ -108,7 +109,24 @@ def generateStatistics(items):
     return stats
 
 
+def loadConfig():
+    try:
+        config_file = open("config.yml")
+    except FileNotFoundError:
+        logger.error("! config.yml is missing. Copy from config.yml.example")
+
+        return None
+
+    with config_file:
+        return yaml.safe_load(config_file)
+
+
 def searchSold(keyword):
+    config = loadConfig()
+
+    if config == None:
+        return {'error': 'Configuration file is missing'}
+
     r = requests.get(config['base_url'] + '/services/search/' \
         'FindingService/v1?OPERATION-NAME=findCompletedItems&' \
         'SERVICE-NAME=FindingService&' \
