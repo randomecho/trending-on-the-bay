@@ -137,7 +137,15 @@ def searchSold(keyword):
         'keywords=' + keyword + \
         '&itemFilter(0).name=SoldItemsOnly&itemFilter(0).value=true')
 
-    return processSoldResults(r.json())
+    response = r.json()
+
+    if 'errorMessage' in response:
+        return {
+            'error': response['errorMessage'][0]['error'][0]['message'][0],
+            'matches': '0'
+        }
+    else:
+        return processSoldResults(response)
 
 
 def processSoldResults(json):
