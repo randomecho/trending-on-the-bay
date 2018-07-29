@@ -80,6 +80,13 @@ def create_results_lookup(search_response):
     return results
 
 
+def extract_error_message(search_response):
+    if 'errorMessage' in search_response:
+        return search_response['errorMessage'][0]['error'][0]['message'][0]
+    else:
+        None
+
+
 def generate_statistics(items):
     total_price = []
     total_price_new = []
@@ -141,7 +148,7 @@ def search_sold(keyword):
 
     if 'errorMessage' in response:
         return {
-            'error': response['errorMessage'][0]['error'][0]['message'][0],
+            'error': extract_error_message(response),
             'matches': '0'
         }
     else:
@@ -154,6 +161,6 @@ def process_sold_results(json):
     if search_response['ack'][0] == 'Success':
         results = create_results_lookup(search_response['searchResult'][0])
     else:
-        results = {'error': search_response['errorMessage'][0]['error'][0]['message'][0]}
+        results = {'error': extract_error_message(search_response)}
 
     return results

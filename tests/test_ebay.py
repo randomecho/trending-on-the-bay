@@ -73,3 +73,17 @@ def test_converting_timedate_to_date():
     result = ebay.convert_end_time('2000-09-15T18:00:36.000Z')
 
     assert format(result, '%Y-%m-%d') == '2000-09-15'
+
+
+def test_extracting_error_message_from_api_json():
+    response = {'errorMessage': [{'error': [{'message': ['No persimmons left']}]}]}
+    result = ebay.extract_error_message(response)
+
+    assert result == 'No persimmons left'
+
+
+def test_extracting_error_message_from_api_json():
+    response = {'mehMessage': 'The lychees are on sale again'}
+    result = ebay.extract_error_message(response)
+
+    assert result is None
