@@ -87,3 +87,9 @@ def test_extracting_error_message_from_api_json():
     result = ebay.extract_error_message(response)
 
     assert result is None
+
+
+def test_create_results_with_zero_matches():
+    result = ebay.create_results_lookup({'@count': 0})
+
+    assert result['matches'] == 0
