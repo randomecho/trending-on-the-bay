@@ -7,7 +7,7 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
-def calculateAverage(sale_prices):
+def calculate_average(sale_prices):
     if len(sale_prices) == 0:
         return 0.0
 
@@ -19,7 +19,7 @@ def calculateAverage(sale_prices):
     return round(average_sales, 2)
 
 
-def calculateShipping(shipping):
+def calculate_shipping(shipping):
     if shipping['shippingType'][0] == 'Free':
         return 0.0
     elif 'shippingServiceCost' in shipping:
@@ -28,18 +28,18 @@ def calculateShipping(shipping):
         return 'Calculated'
 
 
-def calculateTotalPrice(sold_price, shipping_cost):
+def calculate_total_price(sold_price, shipping_cost):
     if type(shipping_cost) is float:
         return round(float(sold_price) + float(shipping_cost), 2)
     else:
         return str(sold_price) + '+'
 
 
-def cleanUpResults(results):
+def clean_up_results(results):
     items = []
 
     for item in results:
-        shipping_cost = calculateShipping(item['shippingInfo'][0])
+        shipping_cost = calculate_shipping(item['shippingInfo'][0])
         sold_price = item['sellingStatus'][0]['currentPrice'][0]['__value__']
 
         items.append({
@@ -48,39 +48,39 @@ def cleanUpResults(results):
             'soldPrice': sold_price,
             'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
             'shipping': shipping_cost,
-            'totalPrice': calculateTotalPrice(sold_price, shipping_cost),
-            'endDate': convertEndTime(item['listingInfo'][0]['endTime'][0]),
-            'condition': convertCondition(item)
+            'totalPrice': calculate_total_price(sold_price, shipping_cost),
+            'endDate': convert_end_time(item['listingInfo'][0]['endTime'][0]),
+            'condition': convert_condition(item)
             })
 
     return items
 
 
-def convertCondition(item):
+def convert_condition(item):
     if 'condition' in item and 'conditionDisplayName' in item['condition'][0]:
         return item['condition'][0]['conditionDisplayName'][0]
     else:
         return '--'
 
 
-def convertEndTime(timestamp):
+def convert_end_time(timestamp):
     end_time = iso8601.parse_date(timestamp)
     return end_time.date()
 
 
-def createResultsLookup(search_response):
-    resultCount = search_response['@count']
-    results = {'matches': resultCount}
+def create_results_lookup(search_response):
+    result_count = search_response['@count']
+    results = {'matches': result_count}
 
-    if (int(resultCount) > 0):
-        items = cleanUpResults(search_response['item'])
+    if (int(result_count) > 0):
+        items = clean_up_results(search_response['item'])
         results['products'] = items
-        results['stats'] = generateStatistics(items)
+        results['stats'] = generate_statistics(items)
 
     return results
 
 
-def generateStatistics(items):
+def generate_statistics(items):
     total_price = []
     total_price_new = []
     total_price_other = []
@@ -95,9 +95,9 @@ def generateStatistics(items):
                 total_price_other.append(item['totalPrice'])
 
     stats = {
-        'average': calculateAverage(total_price),
-        'average_new': calculateAverage(total_price_new),
-        'average_other': calculateAverage(total_price_other),
+        'average': calculate_average(total_price),
+        'average_new': calculate_average(total_price_new),
+        'average_other': calculate_average(total_price_other),
         'highest': max(total_price, default=0),
         'highest_new': max(total_price_new, default=0),
         'highest_other': max(total_price_other, default=0),
@@ -109,7 +109,7 @@ def generateStatistics(items):
     return stats
 
 
-def loadConfig():
+def load_config():
     try:
         config_file = open("config.yml")
     except FileNotFoundError:
@@ -121,8 +121,8 @@ def loadConfig():
         return yaml.safe_load(config_file)
 
 
-def searchSold(keyword):
-    config = loadConfig()
+def search_sold(keyword):
+    config = load_config()
 
     if config is None:
         return {'error': 'Configuration file is missing'}
@@ -145,15 +145,15 @@ def searchSold(keyword):
             'matches': '0'
         }
     else:
-        return processSoldResults(response)
+        return process_sold_results(response)
 
 
-def processSoldResults(json):
-    searchResponse = json['findCompletedItemsResponse'][0]
+def process_sold_results(json):
+    search_response = json['findCompletedItemsResponse'][0]
 
-    if searchResponse['ack'][0] == 'Success':
-        results = createResultsLookup(searchResponse['searchResult'][0])
+    if search_response['ack'][0] == 'Success':
+        results = create_results_lookup(search_response['searchResult'][0])
     else:
-        results = {'error': searchResponse['errorMessage'][0]['error'][0]['message'][0]}
+        results = {'error': search_response['errorMessage'][0]['error'][0]['message'][0]}
 
     return results
