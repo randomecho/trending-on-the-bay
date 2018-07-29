@@ -10,7 +10,7 @@ def index():
 @app.route("/search")
 def search():
     keyword = request.args.get('keyword')
-    results = ebay.searchSold(keyword)
+    results = ebay.search_sold(keyword)
 
     return render_template("search.html", keyword=escape(keyword), results=results)
 
