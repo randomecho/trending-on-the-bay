@@ -124,7 +124,7 @@ def loadConfig():
 def searchSold(keyword):
     config = loadConfig()
 
-    if config == None:
+    if config is None:
         return {'error': 'Configuration file is missing'}
 
     r = requests.get(config['base_url'] + '/services/search/' \
