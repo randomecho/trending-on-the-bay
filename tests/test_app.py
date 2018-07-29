@@ -19,14 +19,6 @@ def test_missing(client):
     assert rv.status_code == 404
 
 
-def test_config_file_missing(client):
-    rv = client.get("/search?keyword=chog")
-    assert b"<b>Error:</b> Configuration file is missing" in rv.data
-
-    with app.test_request_context("/search?keyword=chog") as req:
-        assert req.request.args['keyword'] == 'chog'
-
-
 def test_search(client):
     rv = client.get("/search?keyword=chog")
     assert b"results for: <b>chog</b>" in rv.data
