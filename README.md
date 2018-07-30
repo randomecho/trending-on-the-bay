@@ -15,3 +15,10 @@ The web app should now be accessible via: http://0.0.0.0:3516/
 ## License
 
 Released under [BSD 3-Clause](./LICENSE).
+
+
+### Healthcheck
+
+[![Build Status](https://travis-ci.com/randomecho/trending-on-the-bay.svg?branch=master)](https://travis-ci.com/randomecho/trending-on-the-bay)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/4981c1bb648ae7f65170/maintainability)](https://codeclimate.com/github/randomecho/trending-on-the-bay/maintainability)
