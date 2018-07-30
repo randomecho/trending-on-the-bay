@@ -134,15 +134,16 @@ def search_sold(keyword):
     if config is None:
         return {'error': 'Configuration file is missing'}
 
-    r = requests.get(config['base_url'] + '/services/search/' \
-        'FindingService/v1?OPERATION-NAME=findCompletedItems&' \
-        'SERVICE-NAME=FindingService&' \
-        'SERVICE-VERSION=1.0.0&GLOBAL-ID=EBAY-US&' \
-        'SECURITY-APPNAME=' + config['client_id'] + \
-        '&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&' \
-        'sortOrder=EndTimeSoonest&' \
-        'keywords=' + keyword + \
-        '&itemFilter(0).name=SoldItemsOnly&itemFilter(0).value=true')
+    r = requests.get(config['base_url'] + '/services/search/'
+                     'FindingService/v1?OPERATION-NAME=findCompletedItems&'
+                     'SERVICE-NAME=FindingService&'
+                     'SERVICE-VERSION=1.0.0&GLOBAL-ID=EBAY-US&'
+                     'SECURITY-APPNAME=' + config['client_id'] + '&'
+                     'RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&'
+                     'sortOrder=EndTimeSoonest&'
+                     'keywords=' + keyword + '&'
+                     'itemFilter(0).name=SoldItemsOnly&'
+                     'itemFilter(0).value=true')
 
     response = r.json()
 
