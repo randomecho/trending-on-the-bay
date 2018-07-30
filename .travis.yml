@@ -7,3 +7,5 @@ before_script:
   - cp config.yml.example config.yml
 script:
   - pytest
+notifications:
+  email: false
