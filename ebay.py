@@ -1,5 +1,6 @@
 import iso8601
 import logging
+import os
 import requests
 import yaml
 
@@ -118,7 +119,8 @@ def generate_statistics(items):
 
 def load_config():
     try:
-        config_file = open("config.yml")
+        current_file_directory = os.path.dirname(os.path.abspath(__file__))
+        config_file = open(current_file_directory + "/config.yml")
     except FileNotFoundError:
         logger.error("! config.yml is missing. Copy from config.yml.example")
 
