@@ -93,3 +93,9 @@ def test_create_results_with_zero_matches():
     result = ebay.create_results_lookup({'@count': 0})
 
     assert result['matches'] == 0
+
+
+def test_get_empty_string_if_image_not_present():
+    result = ebay.extract_image({})
+
+    assert result is None

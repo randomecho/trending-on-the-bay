@@ -46,6 +46,7 @@ def clean_up_results(results):
         items.append({
             'title': item['title'][0],
             'url': item['viewItemURL'][0] + '?nordt=true&orig_cvip=true',
+            'image': extract_image(item),
             'soldPrice': sold_price,
             'soldCurrency': item['sellingStatus'][0]['currentPrice'][0]['@currencyId'],
             'shipping': shipping_cost,
@@ -84,6 +85,13 @@ def create_results_lookup(search_response):
 def extract_error_message(search_response):
     if 'errorMessage' in search_response:
         return search_response['errorMessage'][0]['error'][0]['message'][0]
+    else:
+        None
+
+
+def extract_image(search_response):
+    if 'galleryURL' in search_response:
+        return search_response['galleryURL'][0]
     else:
         None
 
