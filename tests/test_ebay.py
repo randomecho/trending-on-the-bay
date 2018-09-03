@@ -95,6 +95,13 @@ def test_create_results_with_zero_matches():
     assert result['matches'] == 0
 
 
+def test_get_image_url_from_search_result():
+    image_location = 'http://example.com/hero.jpg'
+    result = ebay.extract_image({'galleryURL': [image_location]})
+
+    assert result == image_location
+
+
 def test_get_empty_string_if_image_not_present():
     result = ebay.extract_image({})
 
