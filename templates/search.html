@@ -48,7 +48,7 @@
 
 <table>
     <tr>
-        <th>Item</th>
+        <th colspan="2">Item</th>
         <th>Condition</th>
         <th>Price</th>
         <th>Shipping</th>
@@ -56,8 +56,9 @@
     </tr>
     {% for product in results.products %}
     <tr>
-        <td><a href="{{ product.url }}">{{ product.title }}</a><br>
-            <span class="end_date">Sold: {{ product.endDate }}</span></td>
+        <td><a href="{{ product.url }}" title="View original listing">{{ product.title }}</a>
+            <p class="end_date">Sold: {{ product.endDate }}</p></td>
+        <td><a href="{{ product.url }}"><img src="{{ product.image }}" alt="{{ product.title }}" class="gallery"></a></td>
         <td>{{ product.condition }}</td>
         <td>{{ product.soldPrice }}</td>
         <td>{{ product.shipping }}</td>
