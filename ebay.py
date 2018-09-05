@@ -8,18 +8,6 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
-def calculate_average(sale_prices):
-    if len(sale_prices) == 0:
-        return 0.0
-
-    if len(sale_prices) > 2:
-        average_sales = float((sum(sale_prices) - min(sale_prices) - max(sale_prices)) / (len(sale_prices) - 2))
-    else:
-        average_sales = float(sum(sale_prices) / len(sale_prices))
-
-    return round(average_sales, 2)
-
-
 def calculate_shipping(shipping):
     if shipping['shippingType'][0] == 'Free':
         return 0.0
@@ -77,7 +65,6 @@ def create_results_lookup(search_response):
     if (int(result_count) > 0):
         items = clean_up_results(search_response['item'])
         results['products'] = items
-        results['stats'] = generate_statistics(items)
 
     return results
 
@@ -94,35 +81,6 @@ def extract_image(search_response):
         return search_response['galleryURL'][0]
     else:
         None
-
-
-def generate_statistics(items):
-    total_price = []
-    total_price_new = []
-    total_price_other = []
-
-    for item in items:
-        if type(item['shipping']) is float and item['soldCurrency'] == 'USD':
-            total_price.append(item['totalPrice'])
-
-            if "new" in item['condition'].lower():
-                total_price_new.append(item['totalPrice'])
-            else:
-                total_price_other.append(item['totalPrice'])
-
-    stats = {
-        'average': calculate_average(total_price),
-        'average_new': calculate_average(total_price_new),
-        'average_other': calculate_average(total_price_other),
-        'highest': max(total_price, default=0),
-        'highest_new': max(total_price_new, default=0),
-        'highest_other': max(total_price_other, default=0),
-        'lowest': min(total_price, default=0),
-        'lowest_new': min(total_price_new, default=0),
-        'lowest_other': min(total_price_other, default=0)
-        }
-
-    return stats
 
 
 def load_config():

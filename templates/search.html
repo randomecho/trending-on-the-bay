@@ -17,7 +17,7 @@
 
 {% if results.products %}
 <h2>Sold listings</h2>
-{% if results.stats %}
+{% if stats %}
 <table>
     <tr>
         <th>&nbsp;</th>
@@ -27,21 +27,21 @@
     </tr>
     <tr>
         <td>Overall</td>
-        <td>{{ results.stats.average }}</td>
-        <td>{{ results.stats.highest }}</td>
-        <td>{{ results.stats.lowest }}</td>
+        <td>{{ stats.average }}</td>
+        <td>{{ stats.highest }}</td>
+        <td>{{ stats.lowest }}</td>
     </tr>
     <tr>
         <td>New</td>
-        <td>{{ results.stats.average_new }}</td>
-        <td>{{ results.stats.highest_new }}</td>
-        <td>{{ results.stats.lowest_new }}</td>
+        <td>{{ stats.average_new }}</td>
+        <td>{{ stats.highest_new }}</td>
+        <td>{{ stats.lowest_new }}</td>
     </tr>
     <tr>
         <td>Not new</td>
-        <td>{{ results.stats.average_other }}</td>
-        <td>{{ results.stats.highest_other }}</td>
-        <td>{{ results.stats.lowest_other }}</td>
+        <td>{{ stats.average_other }}</td>
+        <td>{{ stats.highest_other }}</td>
+        <td>{{ stats.lowest_other }}</td>
     </tr>
 </table>
 {% endif %}
