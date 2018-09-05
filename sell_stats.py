@@ -11,14 +11,14 @@ def calculate_average(sale_prices):
 
 
 def generate_stats(items):
-    if len(items) == 0:
+    if 'products' not in items or len(items['products']) == 0:
         return
 
     total_price = []
     total_price_new = []
     total_price_other = []
 
-    for item in items:
+    for item in items['products']:
         if type(item['shipping']) is float and item['soldCurrency'] == 'USD':
             total_price.append(item['totalPrice'])
 
