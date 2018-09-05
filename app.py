@@ -17,7 +17,9 @@ def search():
     stats = sell_stats.generate_stats(results)
 
     return render_template("search.html",
-                           keyword=escape(keyword), results=results, stats=stats)
+                           keyword=escape(keyword),
+                           results=results,
+                           stats=stats)
 
 
 @app.errorhandler(404)

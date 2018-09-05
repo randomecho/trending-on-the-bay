@@ -40,5 +40,3 @@ def generate_stats(items):
         }
 
     return stats
-
-
