@@ -14,7 +14,7 @@ def index():
 def search():
     keyword = request.args.get('keyword')
     results = ebay.search_sold(keyword)
-    stats = sell_stats.generate_stats(results['products'])
+    stats = sell_stats.generate_stats(results)
 
     return render_template("search.html",
                            keyword=escape(keyword), results=results, stats=stats)
