@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block body %}
-
 <h1>Trending on the Bay</h1>
 <form method="get" action="/search">
     <input type="text" name="keyword" required="true" autofocus value="{{ keyword }}">
@@ -18,7 +17,7 @@
 {% if results.products %}
 <h2>Sold listings</h2>
 {% if stats %}
-<table>
+<table class="stats">
     <tr>
         <th>&nbsp;</th>
         <th>Average</th>
@@ -46,14 +45,17 @@
 </table>
 {% endif %}
 
-<table>
-    <tr>
-        <th colspan="2">Item</th>
-        <th>Condition</th>
-        <th>Price</th>
-        <th>Shipping</th>
-        <th>Total</th>
-    </tr>
+<table class="results">
+    <thead>
+        <tr>
+            <th colspan="2">Item</th>
+            <th>Condition</th>
+            <th>Price</th>
+            <th>Shipping</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for product in results.products %}
     <tr>
         <td><a href="{{ product.url }}" title="View original listing">{{ product.title }}</a>
@@ -66,7 +68,7 @@
         </td>
     </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endif %}
-
 {% endblock %}

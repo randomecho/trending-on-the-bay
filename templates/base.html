@@ -77,6 +77,70 @@ input[type="text"] {
   margin: 0;
   width: 100px;
 }
+
+@media (max-width: 600px) {
+#app, footer {
+  width: 99%;
+  padding: 1em 0 0 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2, p {
+  margin: 0 1em 1em 10px;
+  padding: 0;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+table, th, td {
+  display: block;
+  margin: 0;
+  padding: 0.5em;
+  width: 99%;
+}
+
+.stats th, .stats td {
+  display: table-cell;
+}
+
+.end_date {
+  margin: 0 1em 0 0;
+  text-align: right;
+}
+
+.gallery {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+}
+
+thead tr {
+  left: -8000px;
+  position: absolute;
+  top: -8000px;
+}
+
+.results td:nth-of-type(4), .results td:nth-of-type(5), .results td:nth-of-type(6) {
+  display: inline-block;
+  float: left;
+  padding: 0 0 1em 0.5em;
+  width: 30%;
+}
+
+.results td:nth-of-type(3):before { content: "Condition: "; font-weight: bold;}
+.results td:nth-of-type(4):before { content: "Price"; }
+.results td:nth-of-type(5):before { content: "Shipping"; }
+.results td:nth-of-type(6):before { content: "Total"; }
+.results td:nth-of-type(4):before, .results td:nth-of-type(5):before, .results td:nth-of-type(6):before {
+  display: block;
+  font-weight: bold;
+}
+}
 </style>
 </head><body>
 <div id="app">
