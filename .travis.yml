@@ -11,6 +11,6 @@ before_script:
 script:
   - pytest
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build -t coverage --exit-code $TRAVIS_TEST_RESULT
 notifications:
   email: false
